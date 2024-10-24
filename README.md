@@ -29,7 +29,7 @@ A customizable and easy-to-use currency input component for React, designed to i
 |-------------------|--------------------------------------------------------------|-------------------------------------------------------------------------------------------------|------------------|
 | `id`              | `string`                                                     | The unique identifier for the input field.                                                      | -                |
 | `initialValue`    | `number`                                                     | The initial value for the input field, formatted as currency. If not provided, defaults to `0`.  | `0`              |
-| `rules`           | `Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>` | Validation rules used by `react-hook-form`. Allows custom validation like `required` fields.     | `{ required: false }` |
+| `rules`           | `Omit<RegisterOptions, 'valueAsNumber', 'valueAsDate', 'setValueAs', 'disabled'>` | Validation rules used by `react-hook-form`. Allows custom validation like `required` fields.     | `{ required: false }` |
 | `decimalLength`   | `number`                                                     | The number of decimal places to display. Defaults to `2`.                                        | `2`              |
 | `decimalSeparator`| `'.' \| ','`                                                 | The symbol used to separate the decimal part. Defaults to a comma (`,`).                         | `','`            |
 | `thousandSeparator`| `'.' \| ','`                                                | The symbol used to separate thousands in large numbers. Defaults to a period (`.`).              | `'.'`            |
