@@ -18,11 +18,11 @@ A customizable and easy-to-use currency input component for React, designed to i
    
 2. Navigate into the project directory:
    ```bash
-    cd react-currency-input
+   cd react-currency-input
 
 3. Install dependencies:
    ```bash
-    npm install
+   npm install
 ## Props
 
 | Prop              | Type                                                         | Description                                                                                     | Default          |
