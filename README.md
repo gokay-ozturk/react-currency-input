@@ -1,46 +1,76 @@
-# Getting Started with Create React App
+# React Currency Input
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A customizable and easy-to-use currency input component for React, designed to integrate seamlessly with `react-hook-form`. Format currency values, apply validation rules, and handle user inputs effortlessly with this component.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Currency Formatting**: Supports formatting for different currencies such as `₺`, `$`, `€`, etc.
+- **Validation**: Easily apply form validation rules like `required`, `min`, `max`, and more using `react-hook-form`.
+- **Flexible Separators**: Choose custom decimal and thousand separators.
+- **Customizable**: Configure the number of decimal places and set the default value.
+- **React-Hook-Form Integration**: Built to work flawlessly with `react-hook-form`.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gokay-ozturk/react-currency-input.git
+   
+2. Navigate into the project directory:
+   ```bash
+    cd react-currency-input
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Install dependencies:
+   ```bash
+    npm install
+## Props
 
-### `npm test`
+| Prop              | Type                                                         | Description                                                                                     | Default          |
+|-------------------|--------------------------------------------------------------|-------------------------------------------------------------------------------------------------|------------------|
+| `id`              | `string`                                                     | The unique identifier for the input field.                                                      | -                |
+| `initialValue`    | `number`                                                     | The initial value for the input field, formatted as currency. If not provided, defaults to `0`.  | `0`              |
+| `rules`           | `Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>` | Validation rules used by `react-hook-form`. Allows custom validation like `required` fields.     | `{ required: false }` |
+| `decimalLength`   | `number`                                                     | The number of decimal places to display. Defaults to `2`.                                        | `2`              |
+| `decimalSeparator`| `'.' \| ','`                                                 | The symbol used to separate the decimal part. Defaults to a comma (`,`).                         | `','`            |
+| `thousandSeparator`| `'.' \| ','`                                                | The symbol used to separate thousands in large numbers. Defaults to a period (`.`).              | `'.'`            |
+| `currency`        | `'$' \| '€' \| '₺' \| '£' \| '¥' \| '₩'`                     | The currency symbol displayed next to the input. It is for visual purposes only.                 | -                |
+| `label`           | `string`                                                     | A descriptive label displayed above the input field.                                             | -                |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Example
 
-### `npm run build`
+```tsx
+import { useForm, FormProvider } from "react-hook-form";
+import CurrencyInput from "./CurrencyInput";
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+interface CustomFormType {
+  price: number;
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+function ExampleForm() {
+  const methods = useForm<CustomFormType>({ defaultValues: { price: 1000.5 } });
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  const onSubmit = (data: CustomFormType) => {
+    console.log(data);
+  };
 
-### `npm run eject`
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <CurrencyInput
+          id="price"
+          initialValue={methods.formState.defaultValues?.price}
+          rules={{ required: "Price is required", min: { value: 0, message: "Price must be at least 0." } }}
+          decimalLength={2}
+          decimalSeparator="."
+          thousandSeparator=","
+          currency="$"
+          label="Price"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </FormProvider>
+  );
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+export default ExampleForm;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
